@@ -42,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _findSensorsInPhisicalDevice() async{
     try {
-      _showMyDialog();
       //assíncrona
       final int numberSensors = await channel.invokeMethod("checkSensors");
 
@@ -50,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
         _numberOfSensors = numberSensors;
       });
 
-      Navigator.pop(context);
     } on PlatformException catch (e) {
       debugPrint(e.message);
     }
@@ -85,23 +83,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _showMyDialog() {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Aguarde'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Aguarde enquanto verificamos seu dispositivo!'),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 }
 
